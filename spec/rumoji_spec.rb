@@ -14,6 +14,12 @@ describe Rumoji do
       key = :smile
       Rumoji.encode(@smile).must_equal ":smile:"
     end
+    
+    describe "without encode_basics" do
+      it "transforms emoji but not basic characters" do
+        Rumoji.encode("#{@smile} 8", false).must_equal ":smile: 8"
+      end
+    end
   end
 
   describe "#decode" do

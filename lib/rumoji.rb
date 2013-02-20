@@ -7,9 +7,9 @@ module Rumoji
   extend self
 
   # Transform emoji into its cheat-sheet code
-  def encode(str)
+  def encode(str, encode_basics = true)
     remapped_codepoints = str.codepoints.flat_map do |codepoint|
-      emoji = Emoji.find_by_codepoint(codepoint)
+      emoji = Emoji.find_by_codepoint(codepoint) if encode_basics || codepoint.to_i >= 2190
       emoji ? emoji.code.codepoints.entries : codepoint
     end
     remapped_codepoints.pack("U*")
